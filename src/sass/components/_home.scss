@@ -1,0 +1,45 @@
+.colors-container{
+    width:80%;
+    margin:auto;
+    padding-top:150px;
+    display:flex;
+    justify-content:space-between;
+    a{
+        width:13%;
+        margin:0px 0.5%;
+    }
+    *{
+        width:100%;
+        height:400px;
+        cursor:pointer;
+        user-select: none;
+    }
+    .pre-active{
+        opacity:0.5;
+        transition:1s;
+    }
+    .active{
+        width:50%;
+        transition:0.5s;
+        position:relative;
+        user-select: none;
+        text-decoration: none;
+        opacity:1;
+        h3{
+            font-size:24px;
+            position:absolute;
+            top:-8%;
+            left:0;
+            width:10%;
+            text-transform: uppercase
+        }
+        p{
+            text-align:left;
+            padding:40px 40px;
+            width:80%;
+            font-size:18px;
+            color:white;
+            line-height:1.2;
+        }
+    }
+}
