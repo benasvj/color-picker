@@ -1,0 +1,35 @@
+.level-page{
+    width:90%;
+    margin:auto;
+    padding-top:40px;
+    h1{
+        padding-bottom:30px;
+        letter-spacing:5px;
+    }
+    .boxes-container{
+        border:1px solid black;
+        display:flex;
+        flex-wrap:wrap;
+        width:640px;
+        margin:auto;
+        .one-box{
+            width:60px;
+            height:60px;
+            margin:1px 1px;
+            border:1px solid black;
+        }
+    }
+    .next{
+        width:640px;
+        height:35px;
+        margin-top:10px;
+        color:white;
+        cursor:pointer;
+        user-select: none;
+        background:white;
+        font-size:18px;
+        font-weight:600;
+        text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+        letter-spacing: 1px;
+    }
+}

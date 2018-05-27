@@ -6,6 +6,7 @@ import registerServiceWorker from './registerServiceWorker';
 import {createStore, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import colorReducer from './reducers/colorsReducer';
+import 'typeface-indie-flower';
 
 const rootReducer = combineReducers({
     colors:colorReducer

@@ -14,12 +14,18 @@ const Home=(props)=>{
         })
         :   props.colors.map((clr, i)=>{
         return <Link key={i} to={`/colors/${clr.name}`}>
-            <div style={{backgroundColor:clr.name}} className="pre-active"></div>
+            <div className="animate" style={{backgroundColor:clr.name}}></div>
         </Link>
     });
     return(
-        <div className="colors-container">
-            {colorBox}
+        <div>
+            <div className="colors-container">
+                {colorBox}
+            </div>
+            {props.match.params.color? null : <div>
+                <h1 className="headingFirst">color</h1>
+                <h2 className="headingSecond">p<span>i</span>cker</h2> 
+            </div>}
         </div>
     );
 };

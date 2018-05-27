@@ -1,0 +1,106 @@
+.animate{
+    width:100%;
+    height:400px;
+    cursor:pointer;
+    user-select: none;
+    animation-name: animate;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+}
+
+.headingFirst{
+    font-size: 80px;
+    text-transform: uppercase;
+    padding-top:32px;
+    margin-left:10%;
+    letter-spacing:140px;
+    font-weight:700;
+    text-align: center;
+    animation-name: headingFirst;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    position:absolute;
+    left:15%;
+    top:40%;
+}
+
+.headingSecond{
+    font-size: 80px;
+    text-transform: uppercase;
+    letter-spacing:15px;
+    font-weight:700;
+    text-align: center;
+    animation-name: headingSecond;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    position:absolute;
+    left:38%;
+    span{
+        color:red;
+    }
+}
+
+@keyframes animate {
+    0%{
+        transform:translateX(-5000%);
+        opacity:0.2;
+        width:20%;
+    }
+    50%{
+        transform:translateX(-100%);
+        opacity:0.2;
+        width:50%;
+    }
+    70%{
+        transform:translateX(-40%);
+        opacity:0.4;
+        width:70%;
+    }
+    80%{
+        transform:translateX(-20%);
+        opacity:0.5;
+        width:100%;
+    }
+    90%{
+        transform:translateX(40%);
+        opacity:0.7;
+    }
+    95%{
+        transform:translateX(-40%);
+        opacity:0.8;
+    }
+    100%{
+        transform:translateX(0%);
+        opacity:1;
+    }
+}
+
+@keyframes headingSecond {
+    0%{
+        transform:scale(4);
+    }
+    80%{
+        transform:scale(1.2);
+    }
+    90%{
+        transform:scale(0.3);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
+
+@keyframes headingFirst {
+    0%{
+        transform:scale(4);
+    }
+    80%{
+        transform:scale(1.2);
+    }
+    90%{
+        transform:scale(0.3);
+    }
+    100%{
+        transform:scale(1);
+    }
+}
