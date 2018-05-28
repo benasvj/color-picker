@@ -10,7 +10,8 @@
         border:1px solid black;
         display:flex;
         flex-wrap:wrap;
-        width:640px;
+        justify-content:space-around;
+        width:650px;
         margin:auto;
         .one-box{
             width:60px;
@@ -31,5 +32,51 @@
         font-weight:600;
         text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
         letter-spacing: 1px;
+    }
+    .active-box{
+        width:60px;
+        height:60px;
+        margin:1px 1px;
+        border:1px solid black;
+        opacity:0.3;
+    }
+    .game-over{
+        height:110vh;
+        width:110%;
+        margin:auto;
+        background:rgba(0,0,0,0.8);
+        position:absolute;
+        top:-10%;
+        left:-10%;
+        z-index:980;
+    }
+    .game-over-banner{
+        z-index:999;
+        background:white;
+        border:2px solid black;
+        position:absolute;
+        width:500px;
+        height:300px;
+        top:60%;
+        left:50%;
+        transform:translate(-50%,-60%);
+        transition:1s;
+        h2{
+            padding:30px 0;
+            font-size:50px;
+            font-weight:600;
+        }
+        p{
+            font-size:25px;
+            text-transform:capitalize;
+            margin-bottom:50px;
+        }
+        a{
+            text-decoration: none;
+            text-transform: capitalize;
+            border:2px solid black;
+            padding:10px 5px;
+            color:black;
+        }
     }
 }
