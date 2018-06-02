@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 class Level extends React.Component{
     state  ={
@@ -7,7 +8,7 @@ class Level extends React.Component{
         rColor:"",
         active:[],
         correct:[],
-        mistakes:0,
+        gg:false,
         answers:[]
     };
     componentDidMount(){
@@ -20,7 +21,7 @@ class Level extends React.Component{
         const levelColor = colorSelected[0];
         const randomColor =[]; 
         levelColor.forEach(clr=>{
-            randomColor.push(Math.floor(clr/8*this.state.level));
+            randomColor.push(Math.floor(clr+100/this.state.level));
         });
         this.setState({rColor:`rgb(${randomColor[0]}, ${randomColor[1]}, ${randomColor[2]})`})
     };
@@ -39,32 +40,32 @@ class Level extends React.Component{
     };
 
     nextLevel = ()=>{
-        this.setState({level:this.state.level+1});
-        const active = [];
-        this.setState({active});
-        this.setState({mistakes:0});
+        //calculating mistakes
+        const mistakes = this.state.answers.filter(answer=>!answer.value);
+        if(mistakes.length>=3 || this.state.active.length>5){
+            this.setState({gg:true});
+        }else{
+            this.setState({level:this.state.level+1});
+            const active = [];
+            this.setState({active});
+        }
     };
 
     answer = (value, index)=>{
         //checking whether the selected answered was selected before
         const alreadySelected  = this.state.answers.filter((ans,i)=>{
-            return ans.box === index;
+            return ans.box === index && ans.level===this.state.level;
         });
         if(alreadySelected.length>0){
             //in this case we delete that answer (pressed again = unchecked it)
-            console.log("This one has been selected before!");
             const newAnswers = this.state.answers.filter((ans,i)=>{
                 return ans.box!==index;
             });
             this.setState({answers:newAnswers});
-            //adjusting sum of mistakes
-            !value? this.setState({mistakes: this.state.mistakes-1}) : null; 
         }else{
             //adding as new answer
-            const newAnswers = [...this.state.answers, {value:value, box:index}];
+            const newAnswers = [...this.state.answers, {value:value, box:index, level:this.state.level, color:this.props.match.params.color}];
             this.setState({answers:newAnswers});
-            //adjusting sum of mistakes
-            !value? this.setState({mistakes: this.state.mistakes+1}) : null; 
         };
     };
 
@@ -78,18 +79,17 @@ class Level extends React.Component{
             this.setState({active});
         }
     };
-
     render(){
+        console.log(this.state.answers);
         const allBoxes = [];
         var i=0;
         for(i=0; i<60; i++){
             allBoxes.push(Math.floor(Math.random()*100));
         };
-        console.log(this.state.correct);
         const boxes = allBoxes.map((box,i)=>{
             return this.state.correct.includes(i)? 
-        <div key={i} className={this.state.active.includes(i)? "active-box": "one-box"} style={{backgroundColor:this.state.rColor}} onClick={()=>{if(this.state.active.length<5){ this.answer(true, i); this.active(i)}}}></div> 
-            : <div key={i} className={this.state.active.includes(i)? "active-box": "one-box"} style={{backgroundColor:this.props.match.params.color}} onClick={()=>{if(this.state.active.length<5){ this.answer(false, i); this.active(i)}}}></div>
+        <div key={i} className={this.state.active.includes(i)? "active-box": "one-box"} style={{backgroundColor:this.state.rColor}} onClick={()=>{this.answer(true, i, this.state.level); this.active(i)}}></div> 
+            : <div key={i} className={this.state.active.includes(i)? "active-box": "one-box"} style={{backgroundColor:this.props.match.params.color}} onClick={()=>{this.answer(false, i, this.state.level); this.active(i)}}></div>
         })
         return(  
             <div className="level-page">
@@ -99,16 +99,19 @@ class Level extends React.Component{
                 </div>
                 <button 
                     className="next"
+                    disabled={this.state.active.length<5 ? "disabled" : false}
                     onClick={()=>{this.nextLevel(); this.generateRandomColors(); this.generateCorrect()}}
                     style={{border:`2px solid ${this.props.match.params.color}`, color:this.props.match.params.color}}>next
                 </button>
-                {this.state.mistakes>=3?
+               
+                {this.state.gg?
                 <div>
+                    {this.props.saveStats(this.props.match.params.color,this.state.level)}
                     <div className="game-over"></div>
                     <div className="game-over-banner">
                         <h2>game over</h2>
-                        <p>you have made too many mistakes</p>
-                        <a href="/quiz">play again</a>
+                        <Link to="/statistics">Check Your Statistics</Link>
+                        <Link to="/quiz">Play Again</Link>
                     </div>
                 </div>
                 :null}
@@ -123,5 +126,13 @@ const mapStateToProps = (state)=>{
     }
 };
 
-export default connect(mapStateToProps)(Level);
+const mapDispatchToProps = (dispatch)=>{
+    return{
+        saveStats(color,level){
+            dispatch({type:'SAVE_STATS', payload:{color,level}})
+        },
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Level);
 

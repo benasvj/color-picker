@@ -56,20 +56,15 @@
         border:2px solid black;
         position:absolute;
         width:500px;
-        height:300px;
+        height:200px;
         top:60%;
         left:50%;
         transform:translate(-50%,-60%);
         transition:1s;
         h2{
-            padding:30px 0;
+            padding:40px 0;
             font-size:50px;
             font-weight:600;
-        }
-        p{
-            font-size:25px;
-            text-transform:capitalize;
-            margin-bottom:50px;
         }
         a{
             text-decoration: none;
@@ -77,6 +72,7 @@
             border:2px solid black;
             padding:10px 5px;
             color:black;
+            margin-left:2%;
         }
     }
 }

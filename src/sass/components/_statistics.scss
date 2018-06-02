@@ -1,0 +1,22 @@
+.stats-page{
+    .bars-container{
+        display:flex;
+        justify-content:space-between;
+        width:90%;
+        margin:auto;
+        padding:50px 0;
+        .stats-bar{
+            width:10%;
+            height:50px;
+            position:relative;
+        }
+        p{
+            color:#fff;
+            font-size:20px;
+            position:absolute;
+            bottom:10%;
+            left:50%;
+            transform:translate(-50%,-10%);
+        }
+    }
+}
