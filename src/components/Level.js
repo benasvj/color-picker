@@ -6,24 +6,28 @@ class Level extends React.Component{
     state  ={
         level:1,
         rColor:"",
+        cColor:"",
         active:[],
         correct:[],
         gg:false,
         answers:[]
     };
     componentDidMount(){
-        this.generateRandomColors();
+        this.generateColors();
         this.generateCorrect();
     };
 
-    generateRandomColors = ()=>{
+    generateColors = ()=>{
         const colorSelected = this.props.colors.filter(clr=>clr.name===this.props.match.params.color).map(clr=>clr.color);
         const levelColor = colorSelected[0];
+        const correctColor = [];
+        levelColor.forEach(clr=>{correctColor.push(clr);});
         const randomColor =[]; 
         levelColor.forEach(clr=>{
             randomColor.push(Math.floor(clr+100/this.state.level));
         });
-        this.setState({rColor:`rgb(${randomColor[0]}, ${randomColor[1]}, ${randomColor[2]})`})
+        this.setState({rColor:`rgb(${randomColor[0]}, ${randomColor[1]}, ${randomColor[2]})`});
+        this.setState({cColor:`rgb(${correctColor[0]}, ${correctColor[1]}, ${correctColor[2]})`})
     };
 
     generateCorrect = ()=>{
@@ -88,8 +92,8 @@ class Level extends React.Component{
         };
         const boxes = allBoxes.map((box,i)=>{
             return this.state.correct.includes(i)? 
-        <div key={i} className={this.state.active.includes(i)? "active-box": "one-box"} style={{backgroundColor:this.state.rColor}} onClick={()=>{this.answer(true, i, this.state.level); this.active(i)}}></div> 
-            : <div key={i} className={this.state.active.includes(i)? "active-box": "one-box"} style={{backgroundColor:this.props.match.params.color}} onClick={()=>{this.answer(false, i, this.state.level); this.active(i)}}></div>
+        <div key={i} className={this.state.active.includes(i)? "active-box": "one-box"} style={{backgroundColor:this.state.rColor}} onClick={()=>{this.answer(true, i); this.active(i)}}></div> 
+            : <div key={i} className={this.state.active.includes(i)? "active-box": "one-box"} style={{backgroundColor:this.state.cColor}} onClick={()=>{this.answer(false, i); this.active(i)}}></div>
         })
         return(  
             <div className="level-page">
@@ -100,7 +104,7 @@ class Level extends React.Component{
                 <button 
                     className="next"
                     disabled={this.state.active.length<5 ? "disabled" : false}
-                    onClick={()=>{this.nextLevel(); this.generateRandomColors(); this.generateCorrect()}}
+                    onClick={()=>{this.nextLevel(); this.generateColors(); this.generateCorrect()}}
                     style={{border:`2px solid ${this.props.match.params.color}`, color:this.props.match.params.color}}>next
                 </button>
                
