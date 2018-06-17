@@ -9,7 +9,7 @@ class Level extends React.Component{
         cColor:"",
         active:[],
         correct:[],
-        gg:false,
+        gg:false,  //game over
         answers:[]
     };
     componentDidMount(){
